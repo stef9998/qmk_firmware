@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    stef9998
 #define PRODUCT         Split-5x7x2
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 // Rows are doubled-up
