@@ -71,6 +71,15 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 { {0, 4},  {1, 4},  {2, 4},  {3, 4}, {4, 4}, {5, 4}, {6, 4}},
 };
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SH_T(KC_SPC):
+            return TAPPING_TERM + 300;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
