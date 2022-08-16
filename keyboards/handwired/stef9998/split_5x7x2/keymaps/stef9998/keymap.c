@@ -2,8 +2,7 @@
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
+// You can also skip layer-names entirely and just use numbers.
 #define _QWERTY 0
 #define _ESS 1 //Enter Symbol Switch
 #define _HOMEMOD 2
@@ -58,6 +57,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _ESS, _SYM, _SYM_ESS);
 }
 
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+{ {0, 5},  {1, 5},  {2, 5},  {3, 5}, {4, 5}, {5, 5}, {6, 5}},
+{ {0, 6},  {1, 6},  {2, 6},  {3, 6}, {4, 6}, {5, 6}, {6, 6}},
+{ {0, 2},  {1, 7},  {2, 7},  {3, 7}, {4, 7}, {5, 7}, {6, 7}}, // caps won't be switched, because of extend
+{ {0, 8},  {1, 8},  {2, 8},  {3, 8}, {4, 8}, {5, 8}, {6, 8}},
+{ {0, 9},  {1, 9},  {2, 9},  {3, 9}, {4, 9}, {5, 9}, {6, 9}},
+
+{ {0, 0},  {1, 0},  {2, 0},  {3, 0}, {4, 0}, {5, 0}, {6, 0}},
+{ {0, 1},  {1, 1},  {2, 1},  {3, 1}, {4, 1}, {5, 1}, {6, 1}},
+{ {0, 2},  {1, 2},  {2, 2},  {3, 2}, {4, 2}, {5, 2}, {6, 2}},
+{ {0, 3},  {1, 3},  {2, 3},  {3, 3}, {4, 3}, {5, 3}, {6, 3}},
+{ {0, 4},  {1, 4},  {2, 4},  {3, 4}, {4, 4}, {5, 4}, {6, 4}},
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
@@ -68,9 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     KC_CAPS ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,KC_EQL  ,                          KC_MINS ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,KC_NO   ,                          KC_NO   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
+    KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,SH_OS   ,                          KC_NO   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
 // ├────────┼────────┼────────┴─┬──────┴───┬────┴────────┼────────┤                         ├────────┼────────┴────┬───┴──────┬─┴────────┼────────┼────────┤
-    KC_LCTL ,KC_LCPO ,KC_LGUI   ,KC_LALT   ,KC_SPC       ,MO(_SYM),                          MO(_SYM),KC_SPC       ,KC_RALT   ,MO(_FN)   ,KC_RCPC ,KC_RCTL
+    KC_LCTL ,KC_LCPO ,KC_LGUI   ,KC_LALT   ,SH_T(KC_SPC) ,MO(_SYM),                          MO(_SYM),KC_SPC       ,KC_RALT   ,MO(_FN)   ,KC_RCPC ,KC_RCTL
 // └────────┴────────┴──────────┴──────────┴─────────────┴────────┘                         └────────┴─────────────┴──────────┴──────────┴────────┴────────┘
 ),
 
