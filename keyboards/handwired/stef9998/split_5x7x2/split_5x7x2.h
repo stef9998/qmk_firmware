@@ -16,7 +16,7 @@
 
 #pragma once
 
-#if defined(KEYBOARD_handwired_stef9998_split_5x7x5_rev1)
+#if defined(KEYBOARD_handwired_stef9998_split_5x7x2_rev1)
 #     include "rev1.h"
 #endif
 
