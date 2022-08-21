@@ -19,12 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // You can also skip layer-names entirely and just use numbers.
-enum custom_layer {
-    _QWERTY,
-    _FN,
-    _SYM, //symbols & numbers
-    _CFG, //config
-};
+#define _QWERTY 0
+#define _FN 3
+#define _SYM 4
+#define _CFG 7//config
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
@@ -46,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     KC_CAPS ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,KC_EQL  ,                          KC_MINS ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    SC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,SH_OS   ,                          KC_NO   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,SC_RSPC ,
+    KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,SH_OS   ,                          KC_NO   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
 // ├────────┼────────┼────────┴─┬──────┴───┬────┴────────┼────────┤                         ├────────┼────────┴────┬───┴──────┬─┴────────┼────────┼────────┤
-    KC_LCTL ,SC_LCPO ,KC_LGUI   ,KC_LALT   ,KC_SPC       ,MO(_SYM),                          MO(_SYM),KC_SPC       ,KC_RALT   ,MO(_FN)   ,SC_RCPC ,KC_RCTL
+    KC_LCTL ,KC_LCPO ,KC_LGUI   ,KC_LALT   ,KC_SPC       ,MO(_SYM),                          MO(_SYM),KC_SPC       ,KC_RALT   ,MO(_FN)   ,KC_RCPC ,KC_RCTL
 // └────────┴────────┴──────────┴──────────┴─────────────┴────────┘                         └────────┴─────────────┴──────────┴──────────┴────────┴────────┘
 ),
 
@@ -76,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     _______ ,KC_MSEL ,KC_MPLY ,XXXXXXX , KC_MPRV, KC_MNXT,_______ ,                          _______ ,KC_MSEL ,KC_MPLY , KC_MPRV, KC_MNXT,KC_MPLY ,_______ ,
 // ├────────┼────────┼────────┴─┬──────┴───┬────┴────────┼────────┤                         ├────────┼────────┴────┬───┴──────┬─┴────────┼────────┼────────┤
-    QK_BOOT ,_______ ,_______   ,_______   ,_______      ,TG(_CFG),                          TG(_CFG),_______      ,_______   ,_______   ,_______ ,QK_BOOT
+    RESET   ,_______ ,_______   ,_______   ,_______      ,TG(_CFG),                          TG(_CFG),_______      ,_______   ,_______   ,_______ ,RESET
 // └────────┴────────┴──────────┴──────────┴─────────────┴────────┘                         └────────┴─────────────┴──────────┴──────────┴────────┴────────┘
 ),
 
