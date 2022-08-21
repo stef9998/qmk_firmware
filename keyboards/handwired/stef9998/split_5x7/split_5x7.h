@@ -13,4 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "split_5x7.h"
+
+#pragma once
+
+#if defined(KEYBOARD_handwired_stef9998_split_5x7_rev1)
+#     include "rev1.h"
+#endif
+
+#include "quantum.h"
