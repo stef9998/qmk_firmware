@@ -18,14 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
-enum custom_layer {
-    _QWERTY,
-    _HOMEMOD,
-    _FN,
-    _SYM, //symbols & numbers
-    _SPARE,
-    _CFG, //config
-};
+// You can also skip layer-names entirely and just use numbers.
+#define _QWERTY 0
+#define _HOMEMOD 2
+#define _FN 3
+#define _SYM 4
+#define _SPARE 6
+#define _CFG 7//config
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
@@ -39,20 +38,20 @@ enum custom_keycodes {
 // Shortcut to make keymap more readable
 #define KC_FN MO(_FN)
 
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case SC_LSPO:
+        case KC_LSPO:
             // Do not force the mod-tap key press to be handled as a modifier
             // if any other key was pressed while the mod-tap key is held down.
-            return true;
+            return false;
 //        case MT(MOD_LSFT,KC_9):
 //            return false;
-        case SC_RSPC:
-            return true;
+        case KC_RSPC:
+            return false;
         default:
             // Force the mod-tap key press to be handled as a modifier if any
             // other key was pressed while the mod-tap key is held down.
-            return false;
+            return true;
     }
 }
 
@@ -60,7 +59,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 //    return update_tri_layer_state(state, _ESS, _SYM, _SYM_ESS);
 //}
 
-//Modified from default, cause I want CapsLock to still be there even when I swap hands
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 { {0, 5},  {1, 5},  {2, 5},  {3, 5}, {4, 5}, {5, 5}, {6, 5}},
 { {0, 6},  {1, 6},  {2, 6},  {3, 6}, {4, 6}, {5, 6}, {6, 6}},
@@ -94,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     KC_CAPS ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,KC_EQL  ,                          KC_MINS ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    SC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,SH_OS   ,                          KC_NO   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,SC_RSPC ,
+    KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,SH_OS   ,                          KC_NO   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
 // ├────────┼────────┼────────┴─┬──────┴───┬────┴────────┼────────┤                         ├────────┼────────┴────┬───┴──────┬─┴────────┼────────┼────────┤
-    KC_LCTL ,SC_LCPO ,KC_LGUI   ,KC_LALT   ,SH_T(KC_SPC) ,MO(_SYM),                          MO(_SYM),KC_SPC       ,KC_RALT   ,MO(_FN)   ,SC_RCPC ,KC_RCTL
+    KC_LCTL ,KC_LCPO ,KC_LGUI   ,KC_LALT   ,SH_T(KC_SPC) ,MO(_SYM),                          MO(_SYM),KC_SPC       ,KC_RALT   ,MO(_FN)   ,KC_RCPC ,KC_RCTL
 // └────────┴────────┴──────────┴──────────┴─────────────┴────────┘                         └────────┴─────────────┴──────────┴──────────┴────────┴────────┘
 ),
 
@@ -134,11 +132,11 @@ _______ ,_______ ,RALT_T(KC_S),LCTL_T(KC_D),LSFT_T(KC_F),LT(_SYM,KC_G),_______ ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     _______ ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,_______ ,                          _______ ,KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,XXXXXXX ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    CW_TOGG ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,_______ ,                          _______ ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_QUOT ,
+    CAPSWRD ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,_______ ,                          _______ ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_QUOT ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     _______ ,KC_MSEL ,KC_MPLY ,XXXXXXX ,KC_EQL  ,KC_PLUS ,_______ ,                          _______ ,KC_UNDS ,KC_MINS , KC_MPRV, KC_MNXT,KC_MPLY ,_______ ,
 // ├────────┼────────┼────────┴─┬──────┴───┬────┴────────┼────────┤                         ├────────┼────────┴────┬───┴──────┬─┴────────┼────────┼────────┤
-    QK_BOOT ,_______ ,_______   ,_______   ,_______      ,TG(_CFG),                          TG(_CFG),_______      ,_______   ,_______   ,_______ ,QK_BOOT
+    RESET   ,_______ ,_______   ,_______   ,_______      ,TG(_CFG),                          TG(_CFG),_______      ,_______   ,_______   ,_______ ,RESET
 // └────────┴────────┴──────────┴──────────┴─────────────┴────────┘                         └────────┴─────────────┴──────────┴──────────┴────────┴────────┘
 ),
 
@@ -160,7 +158,7 @@ _______ ,_______ ,RALT_T(KC_S),LCTL_T(KC_D),LSFT_T(KC_F),LT(_SYM,KC_G),_______ ,
 // ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
     XXXXXXX ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,XXXXXXX ,                          XXXXXXX ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,XXXXXXX ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX ,QK_BOOT ,RGB_M_P ,RGB_TOG ,RGB_MOD ,RGB_HUD ,RGB_HUI ,                          RGB_SAD ,RGB_SAI ,RGB_VAD ,RGB_VAI ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+    XXXXXXX ,RESET   ,RGB_M_P ,RGB_TOG ,RGB_MOD ,RGB_HUD ,RGB_HUI ,                          RGB_SAD ,RGB_SAI ,RGB_VAD ,RGB_VAI ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,
 // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
