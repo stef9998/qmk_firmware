@@ -60,7 +60,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
   * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
-  * define is matrix has ghost (unlikely)
+  * define if matrix has ghost (unlikely)
 * `#define MATRIX_UNSELECT_DRIVE_HIGH`
   * On un-select of matrix pins, rather than setting pins to input-high, sets them to output-high.
 * `#define DIODE_DIRECTION COL2ROW`
