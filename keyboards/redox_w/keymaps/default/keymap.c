@@ -92,6 +92,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _QWERTY:
             set_led_off;
+//            set_led_red;
             break;
         case _SYMB:
             set_led_green;
